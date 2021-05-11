@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import { render } from '@testing-library/react';
+import React from 'react';
 import './App.css';
+import Button from './components/Button/Button';
+import AnimatedButton from './components/AnnimatedButton/AnnimatedButton'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state={text:"hello", counter:0};
+  }
+  
+  componentDidUpdate() {
+    console.log('updated: ',  this.state);
+  }
+
+  componentDidMount() {
+    this.setState({text:'je suis monté'})
+    console.log('mounted')
+  }
+
+  render() {
+    return <div className="app">
+      <Button title="Cliquez ici" action={()=>{
+        this.setState({counter:this.state.counter+1});
+      }}/>
+      <AnimatedButton title="Animated" action={() => console.log('hello')}/>
+      {JSON.stringify(this.state)}
     </div>
-  );
+  }
 }
 
 export default App;
